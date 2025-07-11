@@ -1,0 +1,141 @@
+# hide_cursor_when_typing = true
+live_config_reload = true
+
+[colors.bright]
+black = "0x444b6a"
+blue = "0x7da6ff"
+cyan = "0x0db9d7"
+green = "0xb9f27c"
+magenta = "0xbb9af7"
+red = "0xff7a93"
+white = "0xacb0d0"
+yellow = "0xff9e64"
+
+[colors.normal]
+black = "0x32344a"
+blue = "0x7aa2f7"
+cyan = "0x449dab"
+green = "0x9ece6a"
+magenta = "0xad8ee6"
+red = "0xf7768e"
+white = "0x9699a8"
+yellow = "0xe0af68"
+
+[colors.primary]
+background = "0x24283b"
+foreground = "0xa9b1d6"
+
+[env]
+# term = "tmux"
+term = "xterm-256color"
+
+[font]
+normal = { family = "Monaspace Argon Var", style = "Light" }
+bold = { family = "Monaspace Argon Var", style = "Regular" }
+size = 12.0
+
+[font.glyph_offset]
+x = 0
+y = 3
+
+[font.offset]
+x = 0
+y = 6
+
+[[keyboard.bindings]]
+chars = "code ~/.config/alacritty/alacritty.toml"
+key = "Comma"
+mods = "Command"
+
+# ??
+[[keyboard.bindings]]
+chars = "\u0015"
+key = "Back"
+mods = "Super"
+
+# Split pane right
+[[keyboard.bindings]]
+chars = "\u0000%"
+key = "R"
+mods = "Command"
+
+# Split pane down
+[[keyboard.bindings]]
+chars = "\u0000\""
+key = "D"
+mods = "Command"
+
+# Kill pane
+[[keyboard.bindings]]
+chars = "\u0000x"
+key = "X"
+mods = "Command"
+
+# Enter copy mode
+[[keyboard.bindings]]
+chars = "\u0000["
+key = "S"
+mods = "Command"
+
+# Zoom (maximise) pane 
+[[keyboard.bindings]]
+chars = "\u0000z"
+key = "M"
+mods = "Command"
+
+# Spread panes evenly 
+[[keyboard.bindings]]
+chars = "\u0000E"
+key = "E"
+mods = "Command"
+
+# Show clock
+[[keyboard.bindings]]
+chars = "\u0000z"
+key = "C"
+mods = "Command"
+
+# Show pane numbers
+[[keyboard.bindings]]
+chars = "\u0000q"
+key = "T"
+mods = "Command"
+
+# Jump to start of line
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = "Left"
+mods = "Alt"
+
+# Jump to end of line
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = "Right"
+mods = "Alt"
+
+# [mouse.hints]
+# modifiers = "Command"
+
+# [mouse.hints.launcher]
+# program = "open"
+
+[scrolling]
+history = 100_000
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+# [shell]
+# args = ["-l", "-c", "tmux attach || tmux"]
+# program = "/bin/zsh"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+startup_mode = "Maximized"
+
+[window.padding]
+x = 2
+y = 2

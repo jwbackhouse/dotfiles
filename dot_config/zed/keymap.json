@@ -1,0 +1,36 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-ctrl-left": ["workspace::SwapPaneInDirection", "Left"],
+      "cmd-ctrl-right": ["workspace::SwapPaneInDirection", "Right"],
+      "cmd-k e": "project_panel::ToggleFocus",
+      "cmd-k t": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "cmd-k ;": "tab_switcher::Toggle"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      // "ctrl-d": ["vim::ScrollDown", "editor::ScrollCursorCenter"]
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      // "ctrl-d": ["vim::ScrollDown", "editor::ScrollCursorCenter"],
+      "ctrl-i": "vim::ScrollUp"
+    }
+  }
+]

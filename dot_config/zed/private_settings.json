@@ -1,0 +1,114 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "vim_mode": true,
+  "cursor_blink": false,
+  "language_models": {
+    "openai": {
+      "available_models": []
+    }
+  },
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Tokyo Night Storm"
+  },
+  "ui_font_size": 14,
+  "buffer_font_size": 13.0,
+  "buffer_font_family": "MonoLisa Trial",
+  "buffer_font_weight": 500,
+  // "ui_font_family": "IBM Plex Sans",
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "extend_comment_on_newline": false,
+  "tab_bar": {
+    "show": false
+  },
+  "tab_size": 2,
+  "hard_tabs": false,
+  "project_panel": {
+    "dock": "right",
+    "indent_size": 10
+  },
+  "agent": {
+    // "provider": {
+    //   "default_model": "claude-3-5-sonnet-20240620",
+    //   "name": "anthropic"
+    // },
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-4o"
+    },
+    "default_height": 500.0,
+    "provider": null,
+    "default_width": 500
+  },
+  "indent_guides": {
+    "coloring": "indent_aware",
+    "background_coloring": "disabled"
+  },
+  "scroll_sensitivity": 1.5,
+  "inlay_hints": {
+    "enabled": false,
+    "show_type_hints": false
+  },
+  "terminal": {
+    "copy_on_select": true,
+    "font_family": "Monaspace Neon",
+    "font_weight": 200,
+    "font_size": 12
+  },
+  "code_actions_on_format": {
+    "source.fixAll.eslint": true
+  },
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "double_click_in_multibuffer": "open",
+  "lsp": {
+    "vtsls": {
+      "initialization_options": {
+        // For TypeScript:
+        "typescript": { "tsserver": { "maxTsServerMemory": 16184 } },
+        // For JavaScript:
+        "javascript": { "tsserver": { "maxTsServerMemory": 16184 } }
+      }
+    } //   "typescript-language-server": {
+  },
+  //     "initializationOptions": {
+  //       "preferences": {
+  //         "includeInlayParameterNameHints": "none",
+  //         "includeInlayParameterNameHintsWhenArgumentMatchesName": false,
+  //         "includeInlayFunctionParameterTypeHints": false,
+  //         "includeInlayVariableTypeHints": false,
+  //         "includeInlayVariableTypeHintsWhenTypeMatchesName": false,
+  //         "includeInlayPropertyDeclarationTypeHints": false,
+  //         "includeInlayFunctionLikeReturnTypeHints": false,
+  //         "includeInlayEnumMemberValueHints": false
+  //       }
+  //     }
+  //   },
+  //   "hints": {
+  //     "assignVariableTypes": false,
+  //     "compositeLiteralFields": false,
+  //     "compositeLiteralTypes": false,
+  //     "constantValues": false,
+  //     "functionTypeParameters": false,
+  //     "parameterNames": false,
+  //     "rangeVariableTypes": false
+  //   }
+  // },
+  "relative_line_numbers": true,
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.5
+  }
+}
