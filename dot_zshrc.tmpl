@@ -17,8 +17,9 @@ export GEMINI_API_KEY={{ onepasswordRead "op://Private/Gemini API key/credential
 # export GITHUB_PERSONAL_ACCESS_TOKEN={{ onepasswordRead "op://Private/GitHub PAT old.1/credential" }}
 # export GITHUB_PERSONAL_ACCESS_TOKEN={{ onepasswordRead "op://Private/GitHub PAT old.2/credential" }}
 export GITHUB_PERSONAL_ACCESS_TOKEN={{ onepasswordRead "op://Private/GitHub PAT/credential" }}
+export TAVILY_API_KEY={{ onepasswordRead "op://Private/Tavily API key/credential" }}
 export BRAVE_API_KEY={{ onepasswordRead "op://Private/Brave API key/credential"  }}
-export OPENAI_MCP={{ onepasswordRead "op://Private/OpenAI MCP key/credential"  }}
+export OPENAI_API_KEY={{ onepasswordRead "op://Private/OpenAI MCP key/credential"  }}
 # Workaround for Cursor getting stuck in the terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh --user-data-dir='.' --no-sandbox)"
 
@@ -134,8 +135,16 @@ function pu() {
 export PATH="$PATH:/Users/jamesbackhouse/bin"
 # bit end
 
-eval "$(pyenv init -)"
-eval "$(mise activate zsh)"
+# eval "$(pyenv init -)"
+# eval "$(mise activate zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/jamesbackhouse/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
