@@ -54,43 +54,11 @@ alias prvt='gh pr view'
 alias nuketags='git tag -l | xargs git tag -d && git fetch --tags'
 
 alias format='npm format'
-alias nrb='npm run build:application'
-alias nrbc='npm run build -w @novata/common'
-alias nrbd='npm run build -w @novata/domain'
-alias nrba='npm run build -w @novata/authz'
 alias ns='npm start'
 alias nrw='npm watch'
 alias nt='npm test'
 alias bk='npm run serve'
 alias runbk='bk'
-alias migrate='npm run db:migrate && npm run db:load:fiction'
-alias migratet='npm run db:reset:integration'
-alias newmigrate='npm run db:migrate:create -w @novata/server'
-alias setupdb='npm run setup:oso && npm run setup:redis && npm run setup:localstack'
-alias setuposo='export OSO_AUTH=e_0123456789_12345_osotesttoken01xiIn && export OSO_URL=http://localhost:8080 && export DATABASE_URL="postgresql://postgres:Pass2020NothingSpecial@localhost:5432/novata" && npm run sync:oso-fiction-factset && npm run sync:oso-policy'
-alias dmc='npm run start -w @novata/client'
-alias dms='generate && npm run start -w @novata/server'
-alias dms2='nx start:server'
-alias dmp='npm run dev -w @novata/privco-client'
-alias dmsp='npm run dev -w @novata/privco-client & npm run start -w @novata/server'
-alias dmps='dmsp'
-alias dmsc1='npm run setup:localstack && dmsc'
-alias dmsc='nx run-many --targets start -p @novata/client @novata/server'
-alias dmkit='cd packages/novakit && npx storybook dev -p 6006 --no-open'
-alias dmw='npm run start:queue'
-alias generate='npm run db:generate'
-
-alias testmld='npm run test -w @novata/multi-level-data'
-alias testpri='npm run test -w @novata/privco-client'
-alias testcar='npm run test -w @novata/carbon-navigator'
-alias testcsr='npm run test -w @novata/csrd-client'
-alias testdwa='npm run test -w @novata/data-workspace-api'
-alias testdat='npm run test -w @novata/data-workspace'
-alias testser='npm run test:integration -w @novata/server -- --watch --testPathPattern'
-alias testdom='npm run test:integration -w @novata/domain -- --watch --testPathPattern'
-alias testcli='npm run test:unit -w @novata/client -- --watch --testPathPattern'
-alias testcom='npm run test:unit -w @novata/common -- --watch --testPathPattern'
-alias testnov='npm run test:unit -w @novata/novakit -- --watch --testPathPattern'
 
 alias bin='trash'
 alias rm='trash'
@@ -121,3 +89,12 @@ alias karabiner="keyboard"
 alias keyboard="nvim ~/.keyboard/karabiner.json"
 
 alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
+
+# Spruce
+alias setenv="export $(cat .env | xargs)"
+alias dmc="npm run client:start"
+alias dma="npm run api:start"
+alias dms="npm run dev"
+
+# AI
+alias csa="cursor-agent"
