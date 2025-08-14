@@ -3,6 +3,9 @@ vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSi
 vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
 vim.opt.signcolumn = 'yes'
 
+-- Floating window border
+vim.o.winborder = 'rounded'
+
 -- CURSORLINE
 -- Show which line your cursor is on
 vim.opt.cursorline = false
