@@ -18,14 +18,11 @@ export GEMINI_API_KEY={{ onepasswordRead "op://Private/Gemini API key/credential
 # export GITHUB_PERSONAL_ACCESS_TOKEN={{ onepasswordRead "op://Private/GitHub PAT old.2/credential" }}
 export GITHUB_PERSONAL_ACCESS_TOKEN={{ onepasswordRead "op://Private/GitHub PAT/credential" }}
 export TAVILY_API_KEY={{ onepasswordRead "op://Private/Tavily API key/credential" }}
+export MORPH_API_KEY={{ onepasswordRead "op://Private/Morph API key/credential" }}
 export BRAVE_API_KEY={{ onepasswordRead "op://Private/Brave API key/credential"  }}
 export OPENAI_API_KEY={{ onepasswordRead "op://Private/OpenAI MCP key/credential"  }}
 # Workaround for Cursor getting stuck in the terminal
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh --user-data-dir='.' --no-sandbox)"
-
-# Novata
-export OSO_AUTH=e_0123456789_12345_osotesttoken01xiIn
-export COMPOSE_PROJECT_NAME=bob
 
 # Prevents ^ (and some other characters) from being interpreted as a glob (ref: npm i)
 # unsetopt extended_globG
@@ -37,13 +34,15 @@ export COMPOSE_PROJECT_NAME=bob
 #   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 # }
 
-# nvm is the biggest cause of slow startup times
-# Based on this article: https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/#:~:text=Caching%20Eval%20statements.-,Lazy%20Loading,-The%20issue%20with
-export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
 export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# nvm is the biggest cause of slow startup times
+# Based on this article: https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/#:~:text=Caching%20Eval%20statements.-,Lazy%20Loading,-The%20issue%20with
+# export NVM_LAZY_LOAD=true
+# BUT... lazy loading nvm breaks neovim because it's trying to spawn the node process directly rather
+# than going through the shell function. So re-enabling it below
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 plugins=(
   zsh-nvm
@@ -130,6 +129,27 @@ function pu() {
     (&>/dev/null open raycast://confetti &)
   fi
 }
+
+# Consistent docker name across git worktrees
+export COMPOSE_PROJECT_NAME=bob
+
+# Spruce
+function load_env() {
+    dir="$PWD"
+    
+    while [ "$dir" != "/" ]; do
+        if [ -f "$dir/.env" ]; then
+            echo "Loading environment from: $dir/.env"
+            export $(cat "$dir/.env" | grep -v '^#' | xargs)
+            return 0
+        fi
+        dir=$(dirname "$dir")
+    done
+    
+    echo "No .env file found in current directory or any parent directories"
+    return 1
+}
+
 
 # bit
 export PATH="$PATH:/Users/jamesbackhouse/bin"
