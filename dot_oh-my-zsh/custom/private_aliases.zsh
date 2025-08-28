@@ -20,10 +20,6 @@ alias gcamp='git commit -a -m'
 alias amend='git commit -n --amend --no-edit'
 alias all='git commit -a -m'
 alias pull='git pull'
-alias master='git switch master'
-alias dev='git switch develop'
-alias devp='git switch develop && git pull'
-alias gpod='git merge origin develop'
 alias push='git push'
 alias merge='git merge'
 alias gf='git fetch'
@@ -42,7 +38,6 @@ alias fixup="git log -n 20 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7
 alias wip='git add . && git commit -n -m "wip."'
 alias grbia='num=($1); echo $1 $num; if [[ ! "${num}" =~ ^[0-9]+$ ]]; then echo "grbia: Please enter a valid number."; return 1; fi; git rebase -i --autosquash HEAD~${num};'
 alias check1='git diff | grep -C 2 "TODO\|console.log"'
-alias check='npx lint-staged && npm run lint:pretty-quick && npm run typecheck:affected && cd -'
 
 alias ngrokgo='ngrok http --domain=lemming-coherent-boa.ngrok-free.app 8000'
 
@@ -74,8 +69,6 @@ alias hist="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short -
 alias prune-dry="git branch --v | grep '\gone\]' | awk '{print \$1}'"
 alias prune="git fetch && git branch --v | grep '\gone\]' | awk '{print \$1}' | xargs git branch -D"
 
-alias iphone="open -a Simulator --args -CurrentDeviceUDID 4F593FB4-CCE0-468A-846D-E99B4DB5093F"
-
 alias letsgo="./start_tmux.sh"
 alias alldone="tmux kill-server"
 alias kill1="kill -s QUIT %1"
@@ -83,10 +76,10 @@ alias kill2="kill -s QUIT %2"
 alias kill3="kill -s QUIT %3"
 alias kill4="kill -s QUIT %4"
 
-alias setalias="nvim ~/.oh-my-zsh/custom/aliases.zsh"
+alias setalias="chezmoi edit ~/.oh-my-zsh/custom/aliases.zsh"
 
 alias karabiner="keyboard"
-alias keyboard="nvim ~/.keyboard/karabiner.json"
+alias keyboard="chezmoi edit ~/.keyboard/karabiner.json"
 
 alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
 
@@ -95,6 +88,9 @@ alias setenv="export $(cat .env | xargs)"
 alias dmc="npm run client:start"
 alias dma="npm run api:start"
 alias dms="npm run dev"
+alias dev='git switch staging'
+alias devp='git switch staging && git pull'
+alias gpod='git merge origin staging'
 
 # AI
 alias csa="cursor-agent"
