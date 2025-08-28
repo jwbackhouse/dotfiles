@@ -22,7 +22,7 @@ return {
   },
   {
     'olimorris/codecompanion.nvim',
-    enabled = true,
+    enabled = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
@@ -112,6 +112,7 @@ return {
   {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'main',
+    enabled = false,
     dependencies = {
       { 'zbirenbaum/copilot.lua' }, -- or zbirenbaum/copilot.lua
       { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log wrapper
@@ -148,15 +149,7 @@ return {
             max_tokens = 20480,
           },
         },
-        moonshot = {
-          endpoint = 'https://api.moonshot.ai/v1',
-          model = 'kimi-k2-0711-preview',
-          timeout = 30000, -- Timeout in milliseconds
-          extra_request_body = {
-            temperature = 0.75,
-            max_tokens = 32768,
-          },
-        },
+        copilot = { enabled = false },
       },
       input = {
         provider = 'snacks',
@@ -212,7 +205,7 @@ return {
       --- The below dependencies are optional,
       -- 'stevearc/dressing.nvim', -- for input provider dressing
       'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-      'zbirenbaum/copilot.lua', -- for providers='copilot'
+      -- 'zbirenbaum/copilot.lua', -- for providers='copilot'
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',

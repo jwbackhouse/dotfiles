@@ -39,6 +39,7 @@ return {
     opts = {
       icon_provider = 'nvim-web-devicons',
       default_file_explorer = true,
+      views = { explorer = { win = { kind_presets = { float = { height = '0.9rel', top = '0.05rel' } }, buf_opts = { filetype = 'fyler' } } } },
       mappings = {
         explorer = {
           ['q'] = 'CloseView',

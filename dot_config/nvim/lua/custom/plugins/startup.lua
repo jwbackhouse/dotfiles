@@ -102,6 +102,7 @@ return {
         dashboard.button('b', ' ' .. ' Git branches', ':lua Snacks.picker.git_branches({layout = "vscode"}) <CR>'),
         dashboard.button('-', ' ' .. ' Explorer', ':Yazi <CR>'),
         dashboard.button('t', ' ' .. ' Typing', ':Typr <CR>'),
+        dashboard.button('p', ' ' .. ' Load last session', ':lua require("persistence").load({last = true}) <CR>'),
         dashboard.button('q', ' ' .. ' Quit', ':qa<CR>'),
       }
       dashboard.opts.layout[1].val = 8

@@ -80,9 +80,10 @@ return {
       lazygit = {
         config = {
           os = {
-            edit = 'nvim --server "$NVIM" --remote {{filename}}',
-            editAtLine = 'nvim --server "$NVIM" --remote {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"',
-            editAtLineAndWait = 'nvim +{{line}} {{filename}}',
+            edit = 'nvim --server "$NVIM" --remote {{filename}};  [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":q<CR>"',
+            editAtLine = 'nvim --server "$NVIM" --remote {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>:q<CR>"',
+            -- editAtLine = 'nvim --server "$NVIM" --remote {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>:q<CR>"',
+            editAtLineAndWait = 'nvim +{{line}} {{filename}};  [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":q<CR>"',
             editTemplate = "nvim --server '$NVIM' --remote {{filename}}",
           },
         },
