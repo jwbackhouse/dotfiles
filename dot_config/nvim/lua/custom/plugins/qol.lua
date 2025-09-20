@@ -1,11 +1,13 @@
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', '*', '*zzzv')
 vim.keymap.set('x', '<leader>v', [["_dP]])
 -- vim.keymap.set('n', '/', function()
 --   return ':normal! /\\v' .. vim.fn.input 'Search: ' .. '<CR>zz'
 -- end, { expr = true })
--- Don't write to register when hitting 'x'
+-- Don't write to register for these operations
 vim.keymap.set('n', 'x', '"_x', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'x' }, 'c', '"_c', { noremap = true })
 -- Select all :)
 vim.keymap.set('n', '<D-a>', 'ggVG', { noremap = true, silent = true })
 -- Clear contents of line
@@ -58,7 +60,7 @@ function custom_pickers.git_diff_upstream()
   pick_cmd_result {
     cmd = 'git',
     -- args = { 'diff-tree', '--no-commit-id', '--name-only', '--diff-filter=d', 'HEAD@{u}..HEAD', '-r' },
-    args = { 'diff-tree', '--no-commit-id', '--name-only', '--diff-filter=d', '--first-parent', 'origin/develop..HEAD', '-r' },
+    args = { 'diff-tree', '--no-commit-id', '--name-only', '--diff-filter=d', '--first-parent', 'origin/staging..HEAD', '-r' },
     name = 'git_diff_upstream',
     title = 'Git Branch Changed Files',
     preview = 'file',
@@ -418,20 +420,6 @@ return {
     end,
   },
   {
-    'dmtrKovalenko/fff.nvim',
-    build = 'cargo build --release',
-    opts = {},
-    keys = {
-      {
-        'ff',
-        function()
-          require('fff').find_files() -- or find_in_git_root() if you only want git files
-        end,
-        desc = 'Open file picker',
-      },
-    },
-  },
-  {
     'echasnovski/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
@@ -459,7 +447,7 @@ return {
             action = 'open',
             pair = '()',
             neigh_pattern = '.[%s%z%)]',
-            register = { cr = false },
+            register = { cr = true },
           },
 
           [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
@@ -467,7 +455,7 @@ return {
             action = 'open',
             pair = '[]',
             neigh_pattern = '.[%s%z%)}%]]',
-            register = { cr = false },
+            register = { cr = true },
           },
 
           ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
@@ -475,7 +463,7 @@ return {
             action = 'open',
             pair = '{}',
             neigh_pattern = '.[%s%z%)}%]]',
-            register = { cr = false },
+            register = { cr = true },
           },
 
           -- Double quote: Prevent pairing if either side is a letter

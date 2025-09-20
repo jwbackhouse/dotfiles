@@ -129,7 +129,7 @@ vim.keymap.set('n', '<leader>wv', ':vs<CR>', { noremap = true, silent = true, de
 vim.keymap.set('n', '<leader>wh', ':split<CR>', { noremap = true, silent = true, desc = '[W]indow [H]orizontal split' })
 -- custom
 vim.keymap.set('n', '<leader>cl', function()
-  require('custom.utils').quicklog()
+  require('utils').quicklog()
 end, { noremap = true, silent = true, desc = '[C]ode [L]og' })
 -- Lua
 vim.keymap.set('n', '<leader>ls', '<cmd>source %<CR>', { noremap = true, silent = true, desc = '[L]ua [S]ource file' })
@@ -221,27 +221,6 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- File explorer
-  {
-    'mikavilpas/yazi.nvim',
-    event = 'VeryLazy',
-    keys = {
-      -- 👇 in this section, choose your own keymappings!
-      {
-        '<leader>-',
-        '<cmd>Yazi<cr>',
-        desc = 'Open yazi at the current file',
-      },
-    },
-    ---@type YaziConfig
-    opts = {
-      open_for_directories = true,
-      floating_window_scaling_factor = 1,
-      keymaps = {
-        show_help = '<f1>',
-      },
-    },
-  },
   -- Context aka sticky highlight
   {
     'nvim-treesitter/nvim-treesitter-context',
@@ -373,7 +352,7 @@ require('lazy').setup({
       spec = {
         { '<leader>a', group = 'T[A]b' },
         { '<leader>b', group = '[B]uffer' },
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>c', group = '[C]laude', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>f', group = '[F]ile' },
         { '<leader>g', group = '[G]it' },
@@ -404,42 +383,6 @@ require('lazy').setup({
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    ---@module "conform"
-    ---@type conform.setupOpts
-    opts = {
-      notify_on_error = true,
-      default_format_opts = {
-        lsp_format = 'fallback',
-      },
-      format_on_save = {
-        timeout_ms = 500,
-      },
-      format_after_save = {
-        timeout_ms = 2500,
-      },
-
-      -- format_on_save = function(bufnr)
-      --   return {
-      --     timeout_ms = 2500,
-      --     -- lsp_format = lsp_format_opt,
-      --     lsp_fallback = false,
-      --   }
-      -- end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        json = { 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        sql = { 'sql_formatter' },
-      },
-    },
-  },
   {
     'saghen/blink.cmp',
     dependencies = {
@@ -696,11 +639,11 @@ require('lazy').setup({
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
-  { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   dev = {
-    path = '~/.config/nvim/projects',
-    patterns = { 'jwbackhouse' },
+    path = '~/nvim-projects/dev',
+    patterns = { 'jwbackhouse-dev' },
   },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -726,16 +669,28 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.tsx', '*.ts', '*.jsx', '*.js', '*.json' },
-  group = vim.api.nvim_create_augroup('EslintFixAll', { clear = true }),
-  command = 'silent! LspEslintFixAll',
-  -- callback = function(args)
-  --   if vim.fn.exists 'EslintFixAll' then
-  --     vim.cmd 'EslintFixAll'
-  --   end
-  -- require('conform').format { bufnr = args.buf }
-  -- end,
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    local buffer = vim.api.nvim_get_current_buf()
+    local name = vim.api.nvim_buf_get_name(buffer)
+
+    if name:match 'claude' then
+      -- Switch to normal mode when pressing Escape in terminal mode
+      -- vim.keymap.set('t', '<S-Esc>', '<C-\\><C-n>', { buffer = buffer })
+      vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-h>', { buffer = buffer })
+    end
+  end,
 })
 
-require 'custom.settings.appearance'
+vim.opt.diffopt:append 'algorithm:patience'
+vim.opt.diffopt:append 'indent-heuristic'
+
+-- Load all files in settings/ folder
+local settings_dir = vim.fn.stdpath 'config' .. '/lua/settings/'
+for _, file in ipairs(vim.fn.glob(settings_dir .. '*.lua', true, true)) do
+  local module = file:match 'lua/(.-)%.lua$'
+  if module then
+    require(module:gsub('/', '.'))
+  end
+end

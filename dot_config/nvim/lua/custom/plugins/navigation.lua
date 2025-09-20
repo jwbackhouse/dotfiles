@@ -1,5 +1,43 @@
 return {
   {
+    'dmtrKovalenko/fff.nvim',
+    build = 'cargo build --release',
+    opts = {
+      hl = {
+        matched = 'NONE',
+      },
+    },
+    keys = {
+      {
+        'ff',
+        function()
+          require('fff').find_files() -- or find_in_git_root() if you only want git files
+        end,
+        desc = 'Open file picker',
+      },
+    },
+  },
+  {
+    'mikavilpas/yazi.nvim',
+    event = 'VeryLazy',
+    keys = {
+      -- 👇 in this section, choose your own keymappings!
+      {
+        '<leader>-',
+        '<cmd>Yazi<cr>',
+        desc = 'Open yazi at the current file',
+      },
+    },
+    ---@type YaziConfig
+    opts = {
+      open_for_directories = true,
+      floating_window_scaling_factor = 1,
+      keymaps = {
+        show_help = '<f1>',
+      },
+    },
+  },
+  {
     'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
@@ -32,12 +70,12 @@ return {
   },
   {
     'A7Lavinraj/fyler.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'echasnovski/mini.icons' },
     keys = {
       { '<leader>fy', '<cmd>Fyler<CR>', desc = '[F][Y]ler' },
     },
     opts = {
-      icon_provider = 'nvim-web-devicons',
+      icon_provider = 'mini_icons',
       default_file_explorer = true,
       views = { explorer = { win = { kind_presets = { float = { height = '0.9rel', top = '0.05rel' } }, buf_opts = { filetype = 'fyler' } } } },
       mappings = {
@@ -74,9 +112,10 @@ return {
     'chrisgrieser/nvim-various-textobjs',
     event = 'VeryLazy',
     keys = {
-      vim.keymap.set({ 'o', 'x' }, 'is', '<cmd>lua require("various-textobjs").subword("outer")<CR>'),
-      vim.keymap.set({ 'o', 'x' }, 'C', '<cmd>lua require("various-textobjs").toNextClosingBracket("outer")<CR>'),
-      vim.keymap.set({ 'o', 'x' }, 'Q', '<cmd>lua require("various-textobjs").toNextQuotationMark()<CR>'),
+      vim.keymap.set({ 'o', 'x' }, 'is', '<cmd>lua require("various-textobjs").subword("outer")<CR>', { desc = 'Inner subword' }),
+      vim.keymap.set({ 'o', 'x' }, 'P', '<cmd>lua require("various-textobjs").toNextClosingBracket("outer")<CR>', { desc = 'To next closing bracket' }),
+      vim.keymap.set({ 'o', 'x' }, 'Q', '<cmd>lua require("various-textobjs").toNextQuotationMark()<CR>', { desc = 'To next quotation mark' }),
+      vim.keymap.set({ 'o', 'x' }, '!', '<cmd>lua require("various-textobjs").diagnostic()<CR>', { desc = 'Diagnostic' }),
     },
     opts = {
       keymaps = {

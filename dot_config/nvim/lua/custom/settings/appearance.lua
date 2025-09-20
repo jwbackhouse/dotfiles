@@ -23,3 +23,8 @@ vim.opt.inccommand = 'split'
 
 -- Minimal number of screen lines to keep above and below the cursor.
 -- vim.opt.scrolloff = 0
+
+-- GutterMarks plugin
+vim.api.nvim_set_hl(0, 'GutterMarksLocal', { fg = '#7dcfff' })
+vim.api.nvim_set_hl(0, 'GutterMarksGlobal', { fg = '#e0af68', bold = true })
+vim.api.nvim_set_hl(0, 'GutterMarksSpecial', { fg = '#ff899d', italic = true })

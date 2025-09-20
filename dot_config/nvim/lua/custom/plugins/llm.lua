@@ -1,13 +1,3 @@
-vim.keymap.set({ 'v', 'n' }, '<D-o>', ':CopilotChat<cr>', { noremap = true })
-vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false,
-})
--- vim.g.copilot_no_tab_map = true
-
--- Needed for CopilotChat in Neovim <0.11
-vim.opt.completeopt = { 'menuone', 'popup', 'noinsert' }
-
 return {
   {
     'copilotlsp-nvim/copilot-lsp',
@@ -22,27 +12,51 @@ return {
   },
   {
     'olimorris/codecompanion.nvim',
-    enabled = false,
+    enabled = true,
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
+      'franco-ruggeri/codecompanion-spinner.nvim',
     },
     config = function()
       local cc = require 'codecompanion'
       cc.setup {
+        extensions = { spinner = {} },
         adapters = {
-          openai = function()
-            return require('codecompanion.adapters').extend('openai', {
-              env = {
-                api_key = 'cmd:op read "op://Private/OpenAI MCP key/credential"',
-              },
-            })
-          end,
+          http = {
+            openai = function()
+              return require('codecompanion.adapters').extend('openai', {
+                env = {
+                  api_key = 'cmd:op read "op://Private/OpenAI MCP key/credential"',
+                },
+              })
+            end,
+          },
+          acp = {
+            claude_code = function()
+              return require('codecompanion.adapters').extend('claude_code', {
+                env = {
+                  CLAUDE_CODE_OAUTH_TOKEN = 'cmd:op read "op://Private/Anthropic API key/credential"',
+                },
+              })
+            end,
+            gemini_cli = function()
+              return require('codecompanion.adapters').extend('gemini_cli', {
+                defaults = {
+                  auth_method = 'gemini-api-key',
+                },
+                env = {
+                  GEMINI_API_KEY = 'cmd:op read "op://Private/Gemini API Key/credential"',
+                },
+              })
+            end,
+          },
         },
         log_level = 'DEBUG',
         strategies = {
           chat = {
-            adapter = { name = 'openai', model = 'gpt-4o' },
+            -- adapter = { name = 'copilot', model = 'gpt4.0' },
+            adapter = 'claude_code',
             slash_commands = {
               ['file'] = {
                 opts = {
@@ -79,6 +93,13 @@ return {
             window = {
               width = 0.3,
             },
+            icons = {
+              chat_context = '📎️',
+            },
+            fold_context = true,
+            fold_reasoning = true,
+            start_in_insert_mode = true,
+            show_settings = true,
           },
           diff = {
             provider = 'mini_diff',
@@ -107,23 +128,6 @@ return {
           dismiss = '<C-e>',
         },
       },
-    },
-  },
-  {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'main',
-    enabled = false,
-    dependencies = {
-      { 'zbirenbaum/copilot.lua' }, -- or zbirenbaum/copilot.lua
-      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log wrapper
-    },
-    build = 'make tiktoken', -- Only on MacOS or Linux
-    opts = {
-      model = 'claude-sonnet-4',
-      window = {
-        width = 0.35,
-      },
-      auto_insert_mode = true,
     },
   },
   {

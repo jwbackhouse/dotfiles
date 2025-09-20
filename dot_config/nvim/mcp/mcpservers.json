@@ -5,7 +5,7 @@
       "custom_instructions": {
         "text": "All columns names should be in camel case with a lowercase first letter and put inside double quotation marks. All table names should be converted to camel case with an uppercase first letter and put inside double quotation marks. When searching for strings in a field, always use 'ILIKE' with percentage signs on either side of the search string."
       },
-      "disabled": false,
+      "disabled": true,
       "command": "npx",
       "args": [
         "-y",
@@ -16,24 +16,15 @@
     "fetch": {
       "disabled": false,
       "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ]
+      "args": ["mcp-server-fetch"]
     },
     "brave-search": {
       "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       },
-      "disabled": false,
+      "disabled": true,
       "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "BRAVE_API_KEY",
-        "mcp/brave-search"
-      ]
+      "args": ["run", "-i", "--rm", "-e", "BRAVE_API_KEY", "mcp/brave-search"]
     },
     "github": {
       "env": {
@@ -42,7 +33,7 @@
       "custom_instructions": {
         "text": "All questions related to pull requests or GitHub are referring to the novata-platform repository owned by NovataInc. When returning data from GitHub, always summarise it. Do not just return the raw json. All references to 'me' or 'my' refer to the user jwbackhouse"
       },
-      "disabled": false,
+      "disabled": true,
       "command": "docker",
       "args": [
         "run",
