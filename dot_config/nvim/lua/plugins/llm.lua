@@ -73,15 +73,15 @@ return {
                   jump_action = 'tabnew',
                 },
               },
-              ['mcp'] = {
-                callback = function()
-                  return require 'mcphub.extensions.codecompanion'
-                end,
-                opts = {
-                  requires_approval = false,
-                  temperature = 0.7,
-                },
-              },
+              -- ['mcp'] = {
+              --   callback = function()
+              --     return require 'mcphub.extensions.codecompanion'
+              --   end,
+              --   opts = {
+              --     requires_approval = false,
+              --     temperature = 0.7,
+              --   },
+              -- },
             },
           },
           inline = {
@@ -186,8 +186,8 @@ return {
         docker_extra_args = '',
       },
       system_prompt = function()
-        local hub = require('mcphub').get_hub_instance()
-        return hub and hub:get_active_servers_prompt() or ''
+        -- local hub = require('mcphub').get_hub_instance()
+        -- return hub and hub:get_active_servers_prompt() or ''
       end,
       -- Using function prevents requiring mcphub before it's loaded
       custom_tools = function()
